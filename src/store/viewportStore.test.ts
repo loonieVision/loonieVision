@@ -1,11 +1,17 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { useViewportStore } from "./viewportStore";
+
 import { OlympicStream } from "../types";
+import { useViewportStore } from "./viewportStore";
 
 describe("useViewportStore", () => {
   beforeEach(() => {
     const { setViewportCount, setSelectedViewport, viewports } = useViewportStore.getState();
-    const resetViewports = viewports.map((_, i) => ({ index: i, stream: null, error: null, volume: 1 }));
+    const resetViewports = viewports.map((_, i) => ({
+      index: i,
+      stream: null,
+      error: null,
+      volume: 1,
+    }));
     useViewportStore.setState({ viewports: resetViewports });
     setViewportCount(4);
     setSelectedViewport(0);
@@ -267,9 +273,7 @@ describe("useViewportStore", () => {
 
       assignStream({ id: "1", title: "Test" } as OlympicStream, 0);
       useViewportStore.setState((state) => ({
-        viewports: state.viewports.map((vp, i) =>
-          i === 0 ? { ...vp, volume: 0.5 } : vp
-        ),
+        viewports: state.viewports.map((vp, i) => (i === 0 ? { ...vp, volume: 0.5 } : vp)),
       }));
 
       const preChangeVolume = useViewportStore.getState().viewports[0].volume;
