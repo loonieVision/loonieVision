@@ -1,0 +1,43 @@
+# LoonieVision
+
+Multi-viewer desktop application for CBC GEM Olympic streams. Watch up to 4 concurrent streams or replays with seamless audio switching.
+
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)
+
+## ⚠️ Disclaimer
+
+This is an unofficial third-party application. It is not associated in any way with CBC/Radio-Canada or their companies. LoonieVison requires a CBC account and does not help circumvent any content protection or limitations by CBC/Radio-Canada. LoonieVision is a non-commercial, fan made application looking to cheer on Canadian's Olympic athletes. All products and company names are trademarks™ or registered® trademarks of their respective holders. Any product names, logos and other trademarks or images featured within the app are the property of their respective trademark holders.
+
+## Features
+
+- 🎥 Watch up to 4 CBC GEM Olympic streams simultaneously
+- 🔊 Individually control stream audio
+- ⌨️ Keyboard shortcuts for quick control
+- 🖥️ Cross-platform: Windows, macOS, Linux
+
+## Installation
+
+### Pre-built Binaries
+
+Download the latest release from [GitHub Releases](../../releases).
+
+**Windows:** `LoonieVision_x.x.x_x64-setup.exe`  
+**macOS:** `LoonieVision_x.x.x_x64.dmg` (Intel) or `LoonieVision_x.x.x_aarch64.dmg` (Apple Silicon)  
+**Linux:** `loonievision_x.x.x_amd64.AppImage` or `.deb` package
+
+## Usage
+
+1. **Login:** Sign in with your CBC account when prompted **(Required)**
+2. **Select Streams:** Browse the sidebar for Olympic events
+3. **Assign to Viewport:** Click a stream to assign it to the selected viewport
+4. **Select Video Grid Size** Select stream grid count, 1 if you want to watch one stream at a time or 2 - 4 for multiple
+5. **Keyboard Shortcuts:**
+   - `1-4`: Focus audio on viewport 1-4
+   - `S`: Open/close stream/replay list
+   - `↑↓`: Volume control
+   - `Delete`: Remove stream from viewport
+
+## License
+
+MIT License - See [LICENSE](LICENSE) for details.

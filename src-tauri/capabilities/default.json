@@ -1,0 +1,39 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Default capabilities for LoonieVision",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "http:default",
+    {
+      "identifier": "http:default",
+      "allow": [
+        {
+          "url": "https://gem.cbc.ca/*"
+        },
+        {
+          "url": "https://*.cbc.ca/*"
+        },
+        {
+          "url": "https://*.cbcrc.ca/*"
+        },
+        {
+          "url": "https://*.akamaized.net/*"
+        },
+        {
+          "url": "https://login.cbc.radio-canada.ca/*"
+        }
+      ]
+    },
+    "store:default",
+    "updater:default",
+    "dialog:default",
+    "core:window:allow-create",
+    "core:window:allow-close",
+    "core:window:allow-set-focus",
+    "core:webview:allow-create-webview-window",
+    "core:event:default",
+    "core:event:allow-listen"
+  ]
+}
