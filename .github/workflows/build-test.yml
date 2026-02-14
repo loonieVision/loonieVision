@@ -1,9 +1,19 @@
-name: Release
+name: Build Test
 
 on:
-  push:
-    tags:
-      - "v*"
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: "Platform to build"
+        required: false
+        default: "all"
+        type: choice
+        options:
+          - all
+          - macos-aarch64
+          - macos-x86_64
+          - linux
+          - windows
 
 jobs:
   build:
@@ -14,31 +24,29 @@ jobs:
           - platform: "macos-latest"
             args: "--target aarch64-apple-darwin"
             name: "macOS Apple Silicon"
+            type: macos-aarch64
           - platform: "macos-latest"
             args: "--target x86_64-apple-darwin"
             name: "macOS Intel"
+            type: macos-x86_64
           - platform: "ubuntu-22.04"
             args: ""
             name: "Linux"
+            type: linux
           - platform: "windows-latest"
             args: ""
             name: "Windows"
-
+            type: windows
     runs-on: ${{ matrix.platform }}
     name: Build ${{ matrix.name }}
 
     steps:
+      - name: Skip platform
+        if: inputs.platform != 'all' && inputs.platform != matrix.type
+        run: exit 0
+
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Validate version
-        run: |
-          TAG_VERSION="${GITHUB_REF_NAME#v}"
-          PACKAGE_VERSION=$(node -p "require('./package.json').version")
-          if [ "$TAG_VERSION" != "$PACKAGE_VERSION" ]; then
-            echo "Error: Tag version ($TAG_VERSION) does not match package.json version ($PACKAGE_VERSION)"
-            exit 1
-          fi
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -58,6 +66,9 @@ jobs:
       - name: Install frontend dependencies
         run: npm install
 
+      - name: Build frontend
+        run: npm run build
+
       - name: Build Tauri app
         uses: tauri-apps/tauri-action@v0
         env:
@@ -71,25 +82,13 @@ jobs:
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
-          tagName: ${{ github.ref_name }}
-          releaseName: "LoonieVision ${{ github.ref_name }}"
-          releaseBody: |
-            ## What's New
-
-            See the full changelog for details.
-
-            ## Installation
-
-            Download the appropriate file for your platform:
-            - **Windows**: `.exe` or `.msi` file
-            - **macOS**: `.dmg` file (choose Intel or Apple Silicon)
-            - **Linux**: `.AppImage`, `.deb`, or `.rpm` file
-
-            ## Notes
-
-            - This is an unofficial third-party application
-            - Requires a CBC GEM account
-            - Not affiliated with CBC/Radio-Canada
-          releaseDraft: false
-          prerelease: false
+          tauriScript: npm run tauri build
           args: ${{ matrix.args }}
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: loonievision-${{ matrix.type }}-build
+          path: |
+            src-tauri/target/*/bundle/
+          retention-days: 7
