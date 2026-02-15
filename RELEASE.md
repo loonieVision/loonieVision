@@ -13,17 +13,6 @@ Release workflow is automatically triggered when you push a version tag (e.g., `
 
 ---
 
-## Required GitHub Secrets
-
-Navigate to **Settings > Secrets and variables > Actions** and add these secrets:
-
-| Secret                               | Description                                 |
-| ------------------------------------ | ------------------------------------------- |
-| `TAURI_SIGNING_PRIVATE_KEY`          | Private key for Tauri updater signatures    |
-| `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` | Password for the signing key (if encrypted) |
-
----
-
 ## Release Process
 
 ### Step 1: Create and Merge the Version Bump PR
@@ -94,22 +83,6 @@ This validates that:
 - No unexpected build errors occur
 
 Build artifacts are stored for 7 days and can be downloaded for inspection.
-
----
-
-## Access Control
-
-The release workflow can only complete for tags pushed by repository maintainers. Configure GitHub tag protection rules to prevent unauthorized tag creation.
-
-**Recommended Settings**:
-
-- **Branch protection rule for `main`**:
-  - Restrict who can push matching tags
-  - Require status checks to pass
-  - Require pull request reviews
-
-- **Tag protection rules** (in GitHub repo settings):
-  - Limit tag pushes to maintainers only
 
 ---
 
