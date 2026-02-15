@@ -1,6 +1,6 @@
 [package]
 name = "loonievision"
-version = "0.1.0"
+version = "1.0.0"
 description = "Multi-viewer for CBC GEM Olympic streams"
 authors = ["Your Name"]
 license = "MIT"
