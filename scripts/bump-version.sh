@@ -38,6 +38,9 @@ rm src-tauri/tauri.conf.json.bak
 git add package.json src-tauri/Cargo.toml src-tauri/tauri.conf.json
 git commit -m "chore(release): bump version to v$VERSION"
 
+# Push branch to remote
+git push -u origin "$BRANCH_NAME"
+
 # Create PR
 gh pr create --base main --head "$BRANCH_NAME" --title "release: v$VERSION" --body ""
 
