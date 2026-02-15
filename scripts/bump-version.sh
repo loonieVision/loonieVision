@@ -20,7 +20,7 @@ BRANCH_NAME="release/v$VERSION"
 git checkout -b "$BRANCH_NAME" 2>/dev/null || { echo "Branch already exists or checkout failed"; exit 1; }
 
 # Update package.json version
-sed -i.bak 's/"version": "[^"]*/"version": "'"$VERSION"'"/' package.json
+sed -i.bak 's/"version": "[^"]*/"version": "'"$VERSION",'"/' package.json
 rm package.json.bak
 
 # Update Cargo.toml version
